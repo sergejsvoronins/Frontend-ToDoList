@@ -1,18 +1,64 @@
+
+
 body{
     display: flex;
     justify-content: center;
     align-items: center;
+    *{
+     font-family: 'Poor Story', cursive;
+     font-size: 24px;   
+    }
+    
     .container{
-        h2{
-            text-align: center;
-        }
-        width: 30%;
+        position: relative;
+        width: 20%;
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        background-color: pink;
+        align-items: center;
+        gap: 20px;
+        background-color: darkorange;
         padding: 30px;
         border-radius: 20px;
         box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.3);
+        h2{
+            text-align: center;
+            font-size: 50px;
+        }
+        
+        &__btnContainer{
+            width: 80%;
+            
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            &__btn{
+                background-color: green;
+                border: none;
+                border-radius: 10px;
+                color: whitesmoke;
+                box-shadow: 0 0 5px rgba($color: #000000, $alpha: 0.5);
+                width: 40%;
+                height: 40px;
+
+                &:hover{
+                    background-color: darkgreen;
+                    color: white;
+                    transform: scale(1.01);
+                    cursor: pointer;
+                }
+            }
+        }
+        ul {
+            width: 50%;
+            li {
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .hidden{
+        display: none;
     }
 }
