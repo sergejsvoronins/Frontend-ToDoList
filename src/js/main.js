@@ -13,8 +13,8 @@ let createNewToDoBtn = document.createElement("button");
 let showCompletedToDosBtn = document.createElement("button");
 let toDoUlContainer = document.createElement("div");
 let completedToDoUlContainer = document.createElement("div");
-let toDoListUlTag = document.createElement("ol");
-let completeToDoListUlTag = document.createElement("ol");
+let toDoListUlTag = document.createElement("ul");
+let completeToDoListUlTag = document.createElement("ul");
 let toDoUlListHeader = document.createElement("h2");
 let completedToDoUlListHeader = document.createElement("h2");
 
@@ -57,7 +57,6 @@ createNewToDoBtn.type = "button";
 showCompletedToDosBtn.type ="button";
 
 //Set innerHTML
-
 toDoHeader.innerHTML = "ToDo Lista";
 userInputLabelEl.innerHTML = "Skriv dagens uppgift:";
 createToDoBtn.innerHTML = "Lägg till";
@@ -125,12 +124,17 @@ function clearInput(){
 function hideCompletedList(){
     completedToDoUlContainer.classList.toggle("hidden");
 }
-
+function sortByDate(arrayEl1, arrayEl2){
+    toDoList.sort(()=>{
+        return arrayEl1-arrayEl2;
+    })
+}
 
 
 
 let toDoList = [];
 loadFromLS();
+// sortByDate(toDoList[0].date, toDoList[3].date);
 createHTML();
 
 

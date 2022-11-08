@@ -5,6 +5,9 @@ body{
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1531685250784-7569952593d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60");
+    background-size: cover;
+    background-repeat: no-repeat;
     *{
         font-family: 'Montserrat Alternates', sans-serif;
         font-size: 22px;
@@ -14,16 +17,39 @@ body{
     
     .container{
         position: relative;
+
         width: 25%;
+        min-height: 70%;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 20px;
-        background-color: white;
+        background-color: #fdfd96;
         padding: 30px;
-        border: 30px solid greenyellow;
-        border-radius: 20px;
         box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.3);
+
+        &::before{
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: -6%;
+            left: -6%;
+            height: 100%;
+            width: 100%;
+            background-color: #fdfd96;
+            box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.3);
+        }
+        &::after{
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: -3%;
+            top: -3%;
+            height: 100%;
+            width: 100%;
+            background-color: #fdfd96;
+            box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.3);
+        }
         label{
             width: 100%;
             text-align: left;
@@ -31,19 +57,19 @@ body{
         input {
             width: 100%;
             border: none;
-            border-bottom: 5px solid green ;
+            background-color: #fdfd96;
+            border-bottom: 5px solid ;
             padding: 10px;
-            &:active {
-                border: none;
-            }
             &:focus {
                 outline: none;
             }
         }
         h1{
-            text-align: center;
+            width: 100%;
             font-size: 40px;
         }
+
+        
         &__btnContainer{
             width: 100%;
             
@@ -52,16 +78,15 @@ body{
             justify-content: space-around;
             align-items: center;
             &__btn{
-                border: 5px solid green;
-                border-radius: 10px;
-                color: green;
-                box-shadow: 0 0 5px rgba($color: #000000, $alpha: 0.5);
+                background-color: black;
+                border-radius: 5px;
+                color: #fdfd96;
                 padding: 10px;
                 font-size: 16px;
                 &:hover{
-                    background-color: darkgreen;
-                    color: white;
-                    transform: scale(1.01);
+                    background-color: black;
+                    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.5);
+                    transform: scale(1.02);
                     cursor: pointer;
                 }
             }
