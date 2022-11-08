@@ -9,7 +9,7 @@ body{
         font-family: 'Montserrat Alternates', sans-serif;
         font-size: 22px;
         letter-spacing: 2px;
-        list-style: none;
+    
     }
     
     .container{
@@ -68,12 +68,15 @@ body{
         }
         div {
             width: 100%;
-            ul{
+            ol{
                 width: 100%;
                 h2{
                     text-align: left;
                 }
                 li {
+                    .switch{
+                        display: none;
+                    }
                     &:hover{
                         cursor: pointer;
                     }

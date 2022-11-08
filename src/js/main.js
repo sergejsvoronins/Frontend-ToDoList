@@ -1,8 +1,7 @@
-class ToDoObject {
-    constructor(toDo){
-        this.toDo = toDo;
-    }
-}
+import {ToDoObject} from "./models/todoobject"
+
+
+ 
 //All creations
 let mainContainer = document.createElement("div");
 let toDoHeader = document.createElement("h1");
@@ -14,8 +13,8 @@ let createNewToDoBtn = document.createElement("button");
 let showCompletedToDosBtn = document.createElement("button");
 let toDoUlContainer = document.createElement("div");
 let completedToDoUlContainer = document.createElement("div");
-let toDoListUlTag = document.createElement("ul");
-let completeToDoListUlTag = document.createElement("ul");
+let toDoListUlTag = document.createElement("ol");
+let completeToDoListUlTag = document.createElement("ol");
 let toDoUlListHeader = document.createElement("h2");
 let completedToDoUlListHeader = document.createElement("h2");
 
@@ -51,10 +50,11 @@ completedToDoUlContainer.classList.add("hidden");
 
 userInputLabelEl.setAttribute("for", "userInput");
 userInputEl.setAttribute("type", "text");
+userInputEl.setAttribute("autocomplete", "off");
 userInputEl.setAttribute("placeholder", "Jag ska göra..");
-createToDoBtn.setAttribute("type", "button");
-createNewToDoBtn.setAttribute("type", "button");
-showCompletedToDosBtn.setAttribute("type", "button");
+createToDoBtn.type = "button";
+createNewToDoBtn.type = "button";
+showCompletedToDosBtn.type ="button";
 
 //Set innerHTML
 
@@ -66,63 +66,106 @@ showCompletedToDosBtn.innerHTML = "Visa klara";
 toDoUlListHeader.innerHTML = "Aktiva:";
 completedToDoUlListHeader.innerHTML = "Klara:";
 
+function loadToLS() {
+    localStorage.setItem("toDoList", JSON.stringify(toDoList));
+}
 
-
-let toDoList =[];
-
-createToDoBtn.addEventListener("click", ()=>{
-    if (userInputEl.value===""){
-        alert("Du har glömt att skriva toDo");
+function loadFromLS(){
+    let toDoLS = JSON.parse(localStorage.getItem("toDoList"));
+    if(toDoLS!==null){
+        toDoList = toDoLS.map((toDos) => {
+        return new ToDoObject(toDos.toDo, toDos.status, toDos.counter, toDos.date);
+      }); 
     }
-    else{
-        toDoListUlTag.innerHTML ="";
-        let newToDo = new ToDoObject(userInputEl.value);
-        toDoList.push(newToDo);
-        clearInput();
-    for(let i=0; i< toDoList.length; i++){
-        let counter = 0;
-        let newTask = document.createElement("li");
-        toDoListUlTag.appendChild(newTask);
-        newTask.innerHTML = toDoList[i].toDo;
-        newTask.addEventListener("click",()=>{
 
-            if(counter%2===0){
-                // newTask.innerHTML = toDoList[i].done;
+}
+
+function createHTML () {
+    completeToDoListUlTag.innerHTML = "";
+    toDoListUlTag.innerHTML = "";
+    for(let i=0; i< toDoList.length; i++){
+        let newTask = document.createElement("li");
+        newTask.innerHTML = toDoList[i].toDo + " (Skapad: " + toDoList[i].date + ")";
+        
+        if (toDoList[i].status==="complete"){
+            
+            completeToDoListUlTag.appendChild(newTask);
+        }
+        else {
+            toDoListUlTag.appendChild(newTask);
+        }
+        newTask.addEventListener("click", ()=>{
+            if (toDoList[i].counter%2 === 0){
+                toDoList[i].status = "complete";
+                toDoList[i].counter++;
                 completeToDoListUlTag.appendChild(newTask);
-                counter++;
+                loadToLS();
             }
             else {
-                // newTask.innerHTML = toDoList[i].toDo;
+                toDoList[i].status = "active";
+                toDoList[i].counter++;
                 toDoListUlTag.appendChild(newTask);
-                counter++;
+                loadToLS();
+                
             }
-
-           
         })
+   
         newTask.addEventListener("mouseenter", ()=>{
             newTask.style.fontWeight = "700";
         })
         newTask.addEventListener("mouseleave", ()=>{
             newTask.style.fontWeight = "400";
         })
-    }
-    }
+     }
+}
 
-    
-});
-createNewToDoBtn.addEventListener("click", ()=>{
-    toDoListUlTag.innerHTML ="";
-    completeToDoListUlTag.innerHTML ="";
-    toDoList = [];
-    completedToDoUlContainer.className = "hidden";
-});
-showCompletedToDosBtn.addEventListener("click", hideCompletedList);
 function clearInput(){
     userInputEl.value = "";
 }
 function hideCompletedList(){
     completedToDoUlContainer.classList.toggle("hidden");
 }
+
+
+
+
+let toDoList = [];
+loadFromLS();
+createHTML();
+
+
+createToDoBtn.addEventListener("click", ()=>{
+
+    if (userInputEl.value===""){
+        alert("Du har glömt att skriva toDo");
+    }
+    else{
+        loadFromLS();
+        let current = new Date();
+        const date = current.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+        let newToDo = new ToDoObject(userInputEl.value, "active", 0, date);
+        toDoList.push(newToDo);
+        loadToLS();
+        clearInput();
+        createHTML();
+    }
+});
+
+
+createNewToDoBtn.addEventListener("click", ()=>{
+    toDoList = [];
+    loadToLS();
+    loadFromLS();
+    createHTML();
+});
+
+
+showCompletedToDosBtn.addEventListener("click", hideCompletedList);
+
+
 
 
  
