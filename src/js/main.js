@@ -73,7 +73,7 @@ function loadFromLS(){
     let toDoLS = JSON.parse(localStorage.getItem("toDoList"));
     if(toDoLS!==null){
         toDoList = toDoLS.map((toDos) => {
-        return new ToDoObject(toDos.toDo, toDos.status, toDos.counter, toDos.date);
+        return new ToDoObject(toDos.toDo, toDos.status, toDos.counter);
       }); 
     }
 
@@ -84,18 +84,31 @@ function createHTML () {
     toDoListUlTag.innerHTML = "";
     for(let i=0; i< toDoList.length; i++){
         let newTask = document.createElement("li");
-        newTask.innerHTML = toDoList[i].toDo + " (Skapad: " + toDoList[i].date + ")";
+        newTask.innerHTML = toDoList[i].toDo;
+
+        let checkIcon = document.createElement("div");
+        checkIcon.innerHTML ="<i class='fa-solid fa-check'></i>";
+
+
+        newTask.appendChild(checkIcon);
+
+
+        
         
         if (toDoList[i].status==="complete"){
             
             completeToDoListUlTag.appendChild(newTask);
+            checkIcon.classList.remove("hideCheckIcon");
         }
         else {
             toDoListUlTag.appendChild(newTask);
+            checkIcon.classList.add("hideCheckIcon");
+
         }
         newTask.addEventListener("click", ()=>{
             if (toDoList[i].counter%2 === 0){
                 toDoList[i].status = "complete";
+                checkIcon.classList.remove("hideCheckIcon");
                 toDoList[i].counter++;
                 completeToDoListUlTag.appendChild(newTask);
                 loadToLS();
@@ -104,6 +117,7 @@ function createHTML () {
                 toDoList[i].status = "active";
                 toDoList[i].counter++;
                 toDoListUlTag.appendChild(newTask);
+                checkIcon.classList.add("hideCheckIcon");
                 loadToLS();
                 
             }
@@ -111,6 +125,7 @@ function createHTML () {
    
         newTask.addEventListener("mouseenter", ()=>{
             newTask.style.fontWeight = "700";
+
         })
         newTask.addEventListener("mouseleave", ()=>{
             newTask.style.fontWeight = "400";
@@ -145,12 +160,7 @@ createToDoBtn.addEventListener("click", ()=>{
     }
     else{
         loadFromLS();
-        let current = new Date();
-        const date = current.toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-        let newToDo = new ToDoObject(userInputEl.value, "active", 0, date);
+        let newToDo = new ToDoObject(userInputEl.value, "active", 0);
         toDoList.push(newToDo);
         loadToLS();
         clearInput();

@@ -12,13 +12,16 @@ body{
         font-family: 'Montserrat Alternates', sans-serif;
         font-size: 22px;
         letter-spacing: 2px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
     
     }
     
     .container{
         position: relative;
 
-        width: 25%;
+        width: 30%;
         min-height: 70%;
         display: flex;
         flex-direction: column;
@@ -91,20 +94,34 @@ body{
                 }
             }
         }
-        div {
+        &>div {
             width: 100%;
-            ol{
+            h2{
+                text-align: left;
+                border-bottom: 4px solid black;
+            }
+            ul{
                 width: 100%;
-                h2{
-                    text-align: left;
-                }
+                
                 li {
-                    .switch{
-                        display: none;
-                    }
+                    display: flex;
+                    position: relative;
+                    text-transform: lowercase;
                     &:hover{
                         cursor: pointer;
                     }
+                    .hideCheckIcon{
+                        display: none;                      
+                    }
+                    div {
+                        i{
+                            font-size: 30px;
+                            color: darkgreen;
+                            font-weight: bolder;
+                            margin-left: 5px;
+                        }
+                    }
+                    
                 }
             }
         } 

@@ -3,6 +3,5 @@ export class ToDoObject {
         this.toDo = toDo;
         this.status = status;
         this.counter = counter;
-        this.date = date;
     }
 }
