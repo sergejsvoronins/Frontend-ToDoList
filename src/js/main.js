@@ -89,7 +89,7 @@ hideCompletedToDosBtn.innerHTML = "Göm/Visa klara";
 toDoUlListHeader.innerHTML = "Aktiva:";
 completedToDoUlListHeader.innerHTML = "Klara:";
 toDoListHeaderSortAz.innerHTML = "<i class='fa-solid fa-arrow-down-a-z'></i>";
-toDoListHeaderSortZa.innerHTML = "<i class='fa-solid fa-arrow-down-z-a'></i>"
+toDoListHeaderSortZa.innerHTML = "<i class='fa-solid fa-arrow-up-a-z'></i>";
 
 //Functions
 
@@ -207,6 +207,17 @@ function hideCompletedList(){
 
 
 function sortAz(){
+    toDoList.sort((a,b)=>{
+        let fa = a.status.toLowerCase(),
+            fb = b.status.toLowerCase();
+            if (fa > fb) {
+                return -1;
+            }
+            if (fa < fb) {
+                return 1;
+            }
+            return 0;
+    })
     toDoList.sort((a, b) => {
         let fa = a.toDo.toLowerCase(),
             fb = b.toDo.toLowerCase();
@@ -221,10 +232,21 @@ function sortAz(){
             return 0;
             
         }
-        
+
     });
 }
 function sortZa(){
+    toDoList.sort((a,b)=>{
+        let fa = a.status.toLowerCase(),
+            fb = b.status.toLowerCase();
+            if (fa > fb) {
+                return -1;
+            }
+            if (fa < fb) {
+                return 1;
+            }
+            return 0;
+    })
     toDoList.sort((a, b) => {
         let fa = a.toDo.toLowerCase(),
             fb = b.toDo.toLowerCase();
@@ -239,10 +261,11 @@ function sortZa(){
             return 0;
             
         }
+
     });
 }
 
-
+//When the page starts...
 
 let toDoList = [];
 loadFromLS();
@@ -277,17 +300,17 @@ createNewToDoBtn.addEventListener("click", ()=>{
 hideCompletedToDosBtn.addEventListener("click", hideCompletedList);
 
 toDoListHeaderSortAz.addEventListener("click", ()=>{
+    loadFromLS();
     sortAz();
     loadToLS();
     createHTML();
-    console.log(toDoList);
     
 })
 toDoListHeaderSortZa.addEventListener("click", ()=>{
+    loadFromLS();
     sortZa();
     loadToLS();
     createHTML();
-    console.log(toDoList);
     
 })
 
