@@ -208,19 +208,19 @@ function hideCompletedList(){
 
 function sortAz(){
     toDoList.sort((a,b)=>{
-        let fa = a.status.toLowerCase(),
-            fb = b.status.toLowerCase();
-            if (fa > fb) {
+        let fa = a.status,
+            fb = b.status;
+            if (fa < fb) {
                 return -1;
             }
-            if (fa < fb) {
+            if (fa > fb) {
                 return 1;
             }
             return 0;
     })
     toDoList.sort((a, b) => {
-        let fa = a.toDo.toLowerCase(),
-            fb = b.toDo.toLowerCase();
+        let fa = a.toDo,
+            fb = b.toDo;
         
         if (a.status ==="active" && b.status==="active"){
             if (fa < fb) {
@@ -237,19 +237,19 @@ function sortAz(){
 }
 function sortZa(){
     toDoList.sort((a,b)=>{
-        let fa = a.status.toLowerCase(),
-            fb = b.status.toLowerCase();
-            if (fa > fb) {
+        let fa = a.status,
+            fb = b.status;
+            if (fa < fb) {
                 return -1;
             }
-            if (fa < fb) {
+            if (fa > fb) {
                 return 1;
             }
             return 0;
     })
     toDoList.sort((a, b) => {
-        let fa = a.toDo.toLowerCase(),
-            fb = b.toDo.toLowerCase();
+        let fa = a.toDo,
+            fb = b.toDo;
         
         if (a.status ==="active" && b.status==="active"){
             if (fa > fb) {
