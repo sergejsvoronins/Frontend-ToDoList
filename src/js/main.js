@@ -86,7 +86,7 @@ userInputLabelEl.innerHTML = "Skriv dagens uppgift:";
 createToDoBtn.innerHTML = "Lägg till";
 createNewToDoBtn.innerHTML = "Ny lista";
 hideCompletedToDosBtn.innerHTML = "Göm/Visa klara";
-toDoUlListHeader.innerHTML = "Aktiva:";
+toDoUlListHeader.innerHTML = "Pågående:";
 completedToDoUlListHeader.innerHTML = "Klara:";
 toDoListHeaderSortAz.innerHTML = "<i class='fa-solid fa-arrow-down-a-z'></i>";
 toDoListHeaderSortZa.innerHTML = "<i class='fa-solid fa-arrow-up-a-z'></i>";
