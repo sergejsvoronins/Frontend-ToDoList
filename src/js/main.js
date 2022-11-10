@@ -3,14 +3,15 @@ import {ToDoObject} from "./models/todoobject"
 
  
 //All creations
+
 let mainContainer = document.createElement("div");
 let toDoHeader = document.createElement("h1");
 let userInputLabelEl = document.createElement("label");
 let userInputEl = document.createElement("input");
 let btnContainer = document.createElement("div");
-let createToDoBtn = document.createElement("button");
-let createNewToDoBtn = document.createElement("button");
-let showCompletedToDosBtn = document.createElement("button");
+const createToDoBtn = document.createElement("button");
+const createNewToDoBtn = document.createElement("button");
+let hideCompletedToDosBtn = document.createElement("button");
 let toDoUlContainer = document.createElement("div");
 let completedToDoUlContainer = document.createElement("div");
 let toDoListUlTag = document.createElement("ul");
@@ -19,6 +20,7 @@ let toDoUlListHeader = document.createElement("h2");
 let completedToDoUlListHeader = document.createElement("h2");
 
 //All appends
+
 document.body.append(mainContainer);
 mainContainer.appendChild(toDoHeader);
 mainContainer.appendChild(userInputLabelEl);
@@ -28,7 +30,7 @@ btnContainer.appendChild(createToDoBtn);
 btnContainer.appendChild(createNewToDoBtn);
 mainContainer.appendChild(toDoUlContainer);
 mainContainer.appendChild(completedToDoUlContainer);
-btnContainer.appendChild(showCompletedToDosBtn)
+btnContainer.appendChild(hideCompletedToDosBtn)
 toDoUlContainer.appendChild(toDoUlListHeader);
 toDoUlContainer.appendChild(toDoListUlTag);
 completedToDoUlContainer.appendChild(completedToDoUlListHeader);
@@ -36,34 +38,37 @@ completedToDoUlContainer.appendChild(completeToDoListUlTag);
 
 //Create classes/ID
 
-mainContainer.className = "container";
-userInputLabelEl.className = "container__inputLabel";
-userInputEl.className = "container__inputField";
-btnContainer.className = "container__btnContainer";
-createToDoBtn.className = "container__btnContainer__btn";
-createNewToDoBtn.className = "container__btnContainer__btn";
-showCompletedToDosBtn.className = "container__btnContainer__btn";
+mainContainer.classList.add("container");
+userInputLabelEl.classList.add("container__inputLabel");
+userInputEl.classList.add("container__inputField");
+btnContainer.classList.add("container__btnContainer");
+createToDoBtn.classList.add("container__btnContainer__btn");
+createNewToDoBtn.classList.add("container__btnContainer__btn");
+hideCompletedToDosBtn.classList.add("container__btnContainer__btn");
 userInputEl.id = "userInput";
-completedToDoUlContainer.classList.add("hidden");
+
 
 //Create attributes
 
 userInputLabelEl.setAttribute("for", "userInput");
 userInputEl.setAttribute("type", "text");
 userInputEl.setAttribute("autocomplete", "off");
-userInputEl.setAttribute("placeholder", "Jag ska göra..");
+userInputEl.setAttribute("placeholder", "Skriv här..");
 createToDoBtn.type = "button";
 createNewToDoBtn.type = "button";
-showCompletedToDosBtn.type ="button";
+hideCompletedToDosBtn.type ="button";
 
 //Set innerHTML
+
 toDoHeader.innerHTML = "ToDo Lista";
 userInputLabelEl.innerHTML = "Skriv dagens uppgift:";
 createToDoBtn.innerHTML = "Lägg till";
 createNewToDoBtn.innerHTML = "Ny lista";
-showCompletedToDosBtn.innerHTML = "Visa klara";
+hideCompletedToDosBtn.innerHTML = "Göm/Visa klara";
 toDoUlListHeader.innerHTML = "Aktiva:";
 completedToDoUlListHeader.innerHTML = "Klara:";
+
+//Functions
 
 function loadToLS() {
     localStorage.setItem("toDoList", JSON.stringify(toDoList));
@@ -73,7 +78,7 @@ function loadFromLS(){
     let toDoLS = JSON.parse(localStorage.getItem("toDoList"));
     if(toDoLS!==null){
         toDoList = toDoLS.map((toDos) => {
-        return new ToDoObject(toDos.toDo, toDos.status, toDos.counter);
+        return new ToDoObject(toDos.toDo, toDos.status);
       }); 
     }
 
@@ -83,52 +88,87 @@ function createHTML () {
     completeToDoListUlTag.innerHTML = "";
     toDoListUlTag.innerHTML = "";
     for(let i=0; i< toDoList.length; i++){
-        let newTask = document.createElement("li");
-        newTask.innerHTML = toDoList[i].toDo;
+        //Skapar <li>
+        let newTask = document.createElement("li"); 
 
-        let checkIcon = document.createElement("div");
-        checkIcon.innerHTML ="<i class='fa-solid fa-check'></i>";
-
-
-        newTask.appendChild(checkIcon);
+        //Skapar 4 divar innuti <li>
 
 
+        let iconsContainer = document.createElement("div");
+        newTask.appendChild(iconsContainer);
+        iconsContainer.classList.add("iconContainer");
+
+        let toTrashIcon = document.createElement("div"); 
+        toTrashIcon.innerHTML ="<i class='fa-solid fa-trash-can'></i>";
+        iconsContainer.appendChild(toTrashIcon);
+        toTrashIcon.classList.add("hideIcon");
         
+        let fromTrashIcon = document.createElement("div"); 
+        fromTrashIcon.innerHTML ="<i class='fa-solid fa-trash-can-arrow-up'></i>";
+        iconsContainer.appendChild(fromTrashIcon);
+        fromTrashIcon.classList.add("hideIcon");
+
+        let newTaskContent = document.createElement("div");
+        newTaskContent.innerHTML = toDoList[i].toDo;
+        newTask.appendChild(newTaskContent);
         
+
         if (toDoList[i].status==="complete"){
             
             completeToDoListUlTag.appendChild(newTask);
-            checkIcon.classList.remove("hideCheckIcon");
+
+
         }
         else {
             toDoListUlTag.appendChild(newTask);
-            checkIcon.classList.add("hideCheckIcon");
 
+            
         }
-        newTask.addEventListener("click", ()=>{
-            if (toDoList[i].counter%2 === 0){
-                toDoList[i].status = "complete";
-                checkIcon.classList.remove("hideCheckIcon");
-                toDoList[i].counter++;
+        toTrashIcon.addEventListener("click", ()=>{
+            
+                toDoList[i].status = "complete"  
                 completeToDoListUlTag.appendChild(newTask);
+                toTrashIcon.classList.add("hideIcon");
                 loadToLS();
-            }
-            else {
+        })
+        fromTrashIcon.addEventListener("click", ()=>{
+            
                 toDoList[i].status = "active";
-                toDoList[i].counter++;
                 toDoListUlTag.appendChild(newTask);
-                checkIcon.classList.add("hideCheckIcon");
+                fromTrashIcon.classList.add("hideIcon");
                 loadToLS();
-                
-            }
         })
    
+        toTrashIcon.addEventListener("mouseenter", ()=>{
+            toTrashIcon.style.transform = "scale(1.1)";
+
+        })
+        toTrashIcon.addEventListener("mouseleave", ()=>{
+            toTrashIcon.style.transform = "scale(1)";
+        })
+        fromTrashIcon.addEventListener("mouseenter", ()=>{
+            fromTrashIcon.style.transform = "scale(1.1)";
+
+        })
+        fromTrashIcon.addEventListener("mouseleave", ()=>{
+            fromTrashIcon.style.transform = "scale(1)";
+        })
         newTask.addEventListener("mouseenter", ()=>{
-            newTask.style.fontWeight = "700";
+            if (toDoList[i].status ==="active"){
+                toTrashIcon.classList.remove("hideIcon");
+            }
+            else{
+                fromTrashIcon.classList.remove("hideIcon");
+            }
 
         })
         newTask.addEventListener("mouseleave", ()=>{
-            newTask.style.fontWeight = "400";
+            if (toDoList[i].status ==="active"){
+                toTrashIcon.classList.add("hideIcon");
+            }
+            else{
+                fromTrashIcon.classList.add("hideIcon");
+            }
         })
      }
 }
@@ -139,19 +179,12 @@ function clearInput(){
 function hideCompletedList(){
     completedToDoUlContainer.classList.toggle("hidden");
 }
-function sortByDate(arrayEl1, arrayEl2){
-    toDoList.sort(()=>{
-        return arrayEl1-arrayEl2;
-    })
-}
-
-
 
 let toDoList = [];
 loadFromLS();
-// sortByDate(toDoList[0].date, toDoList[3].date);
 createHTML();
 
+//Events
 
 createToDoBtn.addEventListener("click", ()=>{
 
@@ -160,7 +193,7 @@ createToDoBtn.addEventListener("click", ()=>{
     }
     else{
         loadFromLS();
-        let newToDo = new ToDoObject(userInputEl.value, "active", 0);
+        let newToDo = new ToDoObject(userInputEl.value, "active");
         toDoList.push(newToDo);
         loadToLS();
         clearInput();
@@ -177,7 +210,7 @@ createNewToDoBtn.addEventListener("click", ()=>{
 });
 
 
-showCompletedToDosBtn.addEventListener("click", hideCompletedList);
+hideCompletedToDosBtn.addEventListener("click", hideCompletedList);
 
 
 

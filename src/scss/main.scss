@@ -1,4 +1,13 @@
 
+*{
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
 
 body{
     display: flex;
@@ -8,21 +17,13 @@ body{
     background-image: url("https://images.unsplash.com/photo-1531685250784-7569952593d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmFja2dyb3VuZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60");
     background-size: cover;
     background-repeat: no-repeat;
-    *{
-        font-family: 'Montserrat Alternates', sans-serif;
-        font-size: 22px;
-        letter-spacing: 2px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    
-    }
     
     .container{
         position: relative;
-
         width: 30%;
-        min-height: 70%;
+        max-width: 500px;
+        min-width: 400px;
+        min-height: 50%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -53,39 +54,42 @@ body{
             background-color: #fdfd96;
             box-shadow: 0 0 20px rgba($color: #000000, $alpha: 0.3);
         }
-        label{
-            width: 100%;
-            text-align: left;
-        }
-        input {
-            width: 100%;
-            border: none;
-            background-color: #fdfd96;
-            border-bottom: 5px solid ;
-            padding: 10px;
-            &:focus {
-                outline: none;
-            }
-        }
         h1{
             width: 100%;
             font-size: 40px;
         }
-
-        
+        &__inputLabel{
+            width: 100%;
+            text-align: left;
+        }
+        &__inputField {
+            width: 100%;
+            border: none;
+            background-color: #fdfd96;
+            border-bottom: 5px solid ;
+            padding: 10px 0;
+            &:focus {
+                outline: none;
+            }
+        }
         &__btnContainer{
             width: 100%;
-            
             display: flex;
+            flex-wrap: wrap;
             flex-direction: row;
+            gap: 10px;
+            
             justify-content: space-around;
             align-items: center;
             &__btn{
                 background-color: black;
+                width: 30%;
+                height: 85px;
                 border-radius: 5px;
                 color: #fdfd96;
-                padding: 10px;
+                padding: 20px 0;
                 font-size: 16px;
+
                 &:hover{
                     background-color: black;
                     box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.5);
@@ -94,11 +98,13 @@ body{
                 }
             }
         }
+
         &>div {
             width: 100%;
             h2{
                 text-align: left;
                 border-bottom: 4px solid black;
+                padding: 10px 0;
             }
             ul{
                 width: 100%;
@@ -107,21 +113,23 @@ body{
                     display: flex;
                     position: relative;
                     text-transform: lowercase;
+                    transition: all 3s ease-in-out;
+                    padding: 10px 0;
                     &:hover{
                         cursor: pointer;
                     }
-                    .hideCheckIcon{
-                        display: none;                      
+                    .hideIcon{
+                        display: none;   
+                        transition: all 3s ease-in-out;                   
                     }
-                    div {
-                        i{
-                            font-size: 30px;
-                            color: darkgreen;
-                            font-weight: bolder;
-                            margin-left: 5px;
+
+                    .iconContainer{
+                        width: 40px;
+                        i {
+                            color: black;
+                            font-size: 25px;
                         }
-                    }
-                    
+                    }  
                 }
             }
         } 
