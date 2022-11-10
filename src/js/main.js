@@ -1,7 +1,5 @@
 import {ToDoObject} from "./models/todoobject"
 
-
- 
 //All creations
 
 let mainContainer = document.createElement("div");
@@ -16,18 +14,10 @@ let toDoUlContainer = document.createElement("div");
 let completedToDoUlContainer = document.createElement("div");
 let toDoListUlTag = document.createElement("ul");
 let completeToDoListUlTag = document.createElement("ul");
-
-
 const toDoListHeaderContainer = document.createElement("div");
-
 const toDoUlListHeader = document.createElement("h2");
 const toDoListHeaderSortAz = document.createElement("div");
 const toDoListHeaderSortZa = document.createElement("div");
-
-
-
-
-
 const completedToDoUlListHeader = document.createElement("h2");
 
 //All appends
@@ -42,19 +32,16 @@ btnContainer.appendChild(createNewToDoBtn);
 mainContainer.appendChild(toDoUlContainer);
 mainContainer.appendChild(completedToDoUlContainer);
 btnContainer.appendChild(hideCompletedToDosBtn)
+
 // toDoUlContainer.appendChild(toDoUlListHeader);
+
 toDoUlContainer.appendChild(toDoListHeaderContainer);
 toDoListHeaderContainer.appendChild(toDoUlListHeader);
 toDoListHeaderContainer.appendChild(toDoListHeaderSortAz);
 toDoListHeaderContainer.appendChild(toDoListHeaderSortZa);
-
 toDoUlContainer.appendChild(toDoListUlTag);
 completedToDoUlContainer.appendChild(completedToDoUlListHeader);
 completedToDoUlContainer.appendChild(completeToDoListUlTag);
-
-
-
-
 
 //Create classes/ID
 
@@ -67,7 +54,6 @@ createNewToDoBtn.classList.add("container__btnContainer__btn");
 hideCompletedToDosBtn.classList.add("container__btnContainer__btn");
 userInputEl.id = "userInput";
 toDoListHeaderContainer.classList.add("container__activeToDosHeader");
-
 
 //Create attributes
 
