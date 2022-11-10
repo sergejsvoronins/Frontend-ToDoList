@@ -3,7 +3,7 @@
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 22px;
     letter-spacing: 2px;
-    list-style: none;
+
     padding: 0;
     margin: 0;
 
@@ -98,22 +98,24 @@ body{
                 }
             }
         }
-
-        &>div {
+        
+        & > div {
             width: 100%;
             h2{
                 text-align: left;
-                border-bottom: 4px solid black;
-                padding: 10px 0;
+                padding: 20px 0;
             }
             ul{
                 width: 100%;
+                min-height: 100px;
+                list-style-type: upper-roman;
+                border-top: 4px solid black;
                 
                 li {
                     display: flex;
                     position: relative;
                     text-transform: lowercase;
-                    transition: all 3s ease-in-out;
+                    justify-content: space-between;
                     padding: 10px 0;
                     &:hover{
                         cursor: pointer;
@@ -133,6 +135,31 @@ body{
                 }
             }
         } 
+
+        &__activeToDosHeader{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 10px;
+            h2 {
+                width: 80%;
+            }
+            div {
+                i {
+                    font-size: 30px;
+                    padding: 5px;
+                    
+                }
+                &:hover{
+                    transform: scale(1.1);
+                    cursor: pointer;
+                    i {
+                        box-shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
+                    }
+                }
+            }
+
+        }
         .hidden{
             display: none;
         }
