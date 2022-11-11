@@ -96,18 +96,18 @@ function loadFromLS(){
 }
 
 function createHTML () {
-    
     completeToDoListUlTag.innerHTML = "";
     toDoListUlTag.innerHTML = "";
     for(let i=0; i< toDoList.length; i++){
+
         //Skapar <li>
+
         let newTask = document.createElement("li"); 
 
         //Skapar 4 divar innuti <li>
         
         let iconsContainer = document.createElement("div");
         newTask.appendChild(iconsContainer);
-        iconsContainer.classList.add("iconContainer");
 
         let doneIcon = document.createElement("div"); 
         doneIcon.innerHTML ="<i class='fa-solid fa-check'></i>";
@@ -120,7 +120,6 @@ function createHTML () {
         undoIcon.classList.add("hideIcon");
 
         let newTaskContent = document.createElement("div");
-        newTaskContent.classList.add("toDoContent");
         newTaskContent.innerHTML = toDoList[i].toDo;
         newTask.appendChild(newTaskContent);
 
@@ -129,20 +128,14 @@ function createHTML () {
         newTask.appendChild(trashIcon);
         trashIcon.classList.add("hideIcon");
         
-
-        if (toDoList[i].status==="complete"){
-            
+        if (toDoList[i].status==="complete"){   
             completeToDoListUlTag.appendChild(newTask);
-
-
         }
         else {
-            toDoListUlTag.appendChild(newTask);
-
-            
+            toDoListUlTag.appendChild(newTask);  
         }
+
         doneIcon.addEventListener("click", ()=>{
-            
                 toDoList[i].status = "complete"  
                 completeToDoListUlTag.appendChild(newTask);
                 doneIcon.classList.add("hideIcon");
@@ -150,12 +143,12 @@ function createHTML () {
         })
 
         undoIcon.addEventListener("click", ()=>{
-            
                 toDoList[i].status = "active";
                 toDoListUlTag.appendChild(newTask);
                 undoIcon.classList.add("hideIcon");
                 loadToLS();
         })
+
         trashIcon.addEventListener("click", ()=>{
                 toDoList[i].status = "trash";
                 deleteToDo(toDoList,i);
@@ -168,7 +161,6 @@ function createHTML () {
             if (toDoList[i].status ==="active"){
                 doneIcon.classList.remove("hideIcon");
                 trashIcon.classList.remove("hideIcon");
-                
             }
             else{
                 undoIcon.classList.remove("hideIcon");
@@ -180,7 +172,6 @@ function createHTML () {
             if (toDoList[i].status ==="active"){
                 doneIcon.classList.add("hideIcon");
                 trashIcon.classList.add("hideIcon");
-                
             }
             else{
                 undoIcon.classList.add("hideIcon");
@@ -290,7 +281,6 @@ createNewToDoBtn.addEventListener("click", ()=>{
     loadFromLS();
     createHTML();
 });
-
 
 hideCompletedToDosBtn.addEventListener("click", hideCompletedList);
 
