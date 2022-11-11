@@ -288,18 +288,14 @@ createNewToDoBtn.addEventListener("click", ()=>{
 hideCompletedToDosBtn.addEventListener("click", hideCompletedList);
 
 toDoListHeaderSortAz.addEventListener("click", ()=>{
-    // loadFromLS();
     sortAz();
     loadToLS();
     createHTML();
-    
 })
 toDoListHeaderSortZa.addEventListener("click", ()=>{
-    // loadFromLS();
     sortZa();
     loadToLS();
     createHTML();
-    
 })
 
 
