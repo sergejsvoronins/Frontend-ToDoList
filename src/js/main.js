@@ -222,6 +222,7 @@ function sortAz(){
     });
 }
 function sortZa(){
+    console.log(toDoList);
     toDoList.sort((a,b)=>{
         let fa = a.status,
             fb = b.status;
@@ -233,6 +234,7 @@ function sortZa(){
             }
             return 0;
     })
+    console.log(toDoList);
     toDoList.sort((a, b) => {
         let fa = a.toDo,
             fb = b.toDo;
@@ -249,6 +251,7 @@ function sortZa(){
         }
 
     });
+    console.log(toDoList);
 }
 
 //When the page starts...
@@ -285,14 +288,14 @@ createNewToDoBtn.addEventListener("click", ()=>{
 hideCompletedToDosBtn.addEventListener("click", hideCompletedList);
 
 toDoListHeaderSortAz.addEventListener("click", ()=>{
-    loadFromLS();
+    // loadFromLS();
     sortAz();
     loadToLS();
     createHTML();
     
 })
 toDoListHeaderSortZa.addEventListener("click", ()=>{
-    loadFromLS();
+    // loadFromLS();
     sortZa();
     loadToLS();
     createHTML();
