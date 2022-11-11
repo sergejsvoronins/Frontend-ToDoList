@@ -58,9 +58,9 @@ toDoListHeaderContainer.classList.add("container__activeToDosHeader");
 //Create attributes
 
 userInputLabelEl.setAttribute("for", "userInput");
-userInputEl.setAttribute("type", "text");
-userInputEl.setAttribute("autocomplete", "off");
-userInputEl.setAttribute("placeholder", "Skriv här..");
+userInputEl.type ="text";
+userInputEl.autocomplete = "off";
+userInputEl.placeholder = "Skriv här..";
 createToDoBtn.type = "button";
 createNewToDoBtn.type = "button";
 hideCompletedToDosBtn.type ="button";
@@ -101,25 +101,30 @@ function createHTML () {
         let newTask = document.createElement("li"); 
 
         //Skapar 4 divar innuti <li>
-        let newTaskContent = document.createElement("div");
-        newTaskContent.innerHTML = toDoList[i].toDo;
-        newTask.appendChild(newTaskContent);
-
+        
         let iconsContainer = document.createElement("div");
         newTask.appendChild(iconsContainer);
         iconsContainer.classList.add("iconContainer");
 
-        let toTrashIcon = document.createElement("div"); 
-        toTrashIcon.innerHTML ="<i class='fa-solid fa-trash-can'></i>";
-        iconsContainer.appendChild(toTrashIcon);
-        toTrashIcon.classList.add("hideIcon");
+        let doneIcon = document.createElement("div"); 
+        doneIcon.innerHTML ="<i class='fa-regular fa-square-check'></i>";
+        iconsContainer.appendChild(doneIcon);
+        doneIcon.classList.add("hideIcon");
         
-        let fromTrashIcon = document.createElement("div"); 
-        fromTrashIcon.innerHTML ="<i class='fa-solid fa-trash-can-arrow-up'></i>";
-        iconsContainer.appendChild(fromTrashIcon);
-        fromTrashIcon.classList.add("hideIcon");
+        let undoIcon = document.createElement("div"); 
+        undoIcon.innerHTML ="<i class='fa-solid fa-rotate-left'></i>";
+        iconsContainer.appendChild(undoIcon);
+        undoIcon.classList.add("hideIcon");
 
-        
+        let newTaskContent = document.createElement("div");
+        newTaskContent.classList.add("toDoContent");
+        newTaskContent.innerHTML = toDoList[i].toDo;
+        newTask.appendChild(newTaskContent);
+
+        let trashIcon = document.createElement("div"); 
+        trashIcon.innerHTML ="<i class='fa-regular fa-trash-can'></i>";
+        newTask.appendChild(trashIcon);
+        trashIcon.classList.add("hideIcon");
         
 
         if (toDoList[i].status==="complete"){
@@ -133,52 +138,50 @@ function createHTML () {
 
             
         }
-        toTrashIcon.addEventListener("click", ()=>{
+        doneIcon.addEventListener("click", ()=>{
             
                 toDoList[i].status = "complete"  
                 completeToDoListUlTag.appendChild(newTask);
-                toTrashIcon.classList.add("hideIcon");
+                doneIcon.classList.add("hideIcon");
                 loadToLS();
         })
-        fromTrashIcon.addEventListener("click", ()=>{
+
+        undoIcon.addEventListener("click", ()=>{
             
                 toDoList[i].status = "active";
                 toDoListUlTag.appendChild(newTask);
-                fromTrashIcon.classList.add("hideIcon");
+                undoIcon.classList.add("hideIcon");
                 loadToLS();
         })
+        trashIcon.addEventListener("click", ()=>{
+                toDoList[i].status = "trash";
+                deleteToDo(toDoList,i);
+                loadToLS();
+                loadFromLS();
+                createHTML();
+        })
    
-        toTrashIcon.addEventListener("mouseenter", ()=>{
-            toTrashIcon.style.transform = "scale(1.1)";
-
-        })
-        toTrashIcon.addEventListener("mouseleave", ()=>{
-            toTrashIcon.style.transform = "scale(1)";
-        })
-        fromTrashIcon.addEventListener("mouseenter", ()=>{
-            fromTrashIcon.style.transform = "scale(1.1)";
-
-        })
-        fromTrashIcon.addEventListener("mouseleave", ()=>{
-            fromTrashIcon.style.transform = "scale(1)";
-        })
         newTask.addEventListener("mouseenter", ()=>{
-            newTask.style.fontWeight = "700";
             if (toDoList[i].status ==="active"){
-                toTrashIcon.classList.remove("hideIcon");
+                doneIcon.classList.remove("hideIcon");
+                trashIcon.classList.remove("hideIcon");
+                
             }
             else{
-                fromTrashIcon.classList.remove("hideIcon");
+                undoIcon.classList.remove("hideIcon");
+                trashIcon.classList.remove("hideIcon");
             }
 
         })
         newTask.addEventListener("mouseleave", ()=>{
-            newTask.style.fontWeight = "400";
             if (toDoList[i].status ==="active"){
-                toTrashIcon.classList.add("hideIcon");
+                doneIcon.classList.add("hideIcon");
+                trashIcon.classList.add("hideIcon");
+                
             }
             else{
-                fromTrashIcon.classList.add("hideIcon");
+                undoIcon.classList.add("hideIcon");
+                trashIcon.classList.add("hideIcon");
             }
         })
      }
@@ -191,6 +194,9 @@ function hideCompletedList(){
     completedToDoUlContainer.classList.toggle("hidden");
 }
 
+function deleteToDo (someList, index){
+    someList.splice (index, 1);
+}
 
 function sortAz(){
     toDoList.sort((a,b)=>{
