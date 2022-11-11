@@ -53,7 +53,10 @@ createToDoBtn.classList.add("container__btnContainer__btn");
 createNewToDoBtn.classList.add("container__btnContainer__btn");
 hideCompletedToDosBtn.classList.add("container__btnContainer__btn");
 userInputEl.id = "userInput";
-toDoListHeaderContainer.classList.add("container__activeToDosHeader");
+toDoUlContainer.classList.add("container__toDosContainer");
+completedToDoUlContainer.classList.add("container__toDosContainer");
+toDoListHeaderContainer.classList.add("container__toDosContainer__activeToDosHeader");
+
 
 //Create attributes
 
@@ -107,7 +110,7 @@ function createHTML () {
         iconsContainer.classList.add("iconContainer");
 
         let doneIcon = document.createElement("div"); 
-        doneIcon.innerHTML ="<i class='fa-regular fa-square-check'></i>";
+        doneIcon.innerHTML ="<i class='fa-solid fa-check'></i>";
         iconsContainer.appendChild(doneIcon);
         doneIcon.classList.add("hideIcon");
         
