@@ -1,5 +1,5 @@
 export class ToDoObject {
-    constructor(toDo, status, counter, date){
+    constructor(toDo, status){
         this.toDo = toDo;
         this.status = status;
     }
